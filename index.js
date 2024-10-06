@@ -3,8 +3,12 @@ const app= express();
 const {Router}=require("express");
 const {userRoute}=require("./routes/user");
 const {coursesRoute}=require( "./routes/courses");
-const mongoose=require("mongoose")
+const mongoose=require("mongoose");
+const { adminRouter } = require("./routes/admin");
 
+// parsing body
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 //database connection
 async function mogoconnection() {
@@ -19,12 +23,15 @@ async function mogoconnection() {
 }
 
 mogoconnection();
-
+//importing route
 app.use("/user",userRoute);
 app.use("/courses",coursesRoute);
+app.use("/admin",adminRouter)
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
+
+
+
 
 
 app.listen(3030,(req,res)=>{

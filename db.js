@@ -1,19 +1,20 @@
 const mongoose=require("mongoose");
 const Schema= mongoose.Schema;
 const ObjectId=Schema.ObjectId;
+require('dotenv').config();
 
-async function mogoconnection() {
+const mongoURI = process.env.DATABASE_URL;
 
-  try{
-    await mongoose.connect("mongodb+srv://cob56dhammabhushanwaghmare:omtNTxv1bOtWqTmD@cluster0.jtu0y.mongodb.net/coursesApp");
-  console.log("connection done ");
-  }catch(err){
-    console.log(err);
-  }
-  
+if (!mongoURI) {
+  console.error('MongoDB connection string is undefined. Check your .env file.');
+  process.exit(1);  // Exit the process if the URI is not defined
 }
 
-mogoconnection();
+mongoose.connect(mongoURI)
+  .then(() => console.log('MongoDB connected successfully'))
+  .catch((error) => console.error('MongoDB connection error:', error));
+
+ 
 const userSchema= new Schema({
 email: { type: String, required: true, unique: true },
 password:String,
