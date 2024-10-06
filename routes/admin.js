@@ -120,8 +120,11 @@ adminRouter.post("/signin",async(req,res)=>{
               res.json({
                   token:token
               })
-          } 
-  
+          } else{
+            res.json({
+                message:"wrong credentional"
+            })
+          }
       }catch(err){
           res.json({
               message:err
