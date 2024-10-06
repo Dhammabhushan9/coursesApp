@@ -2,11 +2,12 @@ const {Router} = require("express");
 
 const {z}= require("zod");
 const  bcrypt= require("bcrypt");
-const { adminModel } = require("../db");
+const { adminModel, coursesModel } = require("../db");
 const jwt= require("jsonwebtoken");
 require('dotenv').config();
-const SECRET_KEY=process.env.ADMIN_SECRET_KEY;
-const adminAuth= require("../auth/adminAuth") ;
+const SECRET_KEY = process.env.ADMIN_SECRET_KEY;
+const adminAuth = require("../middleware/adminAuth");
+
 
 const adminRouter=Router();
 
@@ -131,27 +132,123 @@ adminRouter.post("/signin",async(req,res)=>{
           })
       }
 });
+  
+ 
 
-adminRouter.post("/courses",(req,res)=>{
+adminRouter.post("/courses" , adminAuth,async(req,res)=>{
+    const adminId= req.adminId;
+   
+    const { title ,description, price, imageUrl}=req.body;
+    //zod for the verification
 
-    res.json({
-        message:"admin route check"
+    const coursesSchema=z.object({
+        title:z.string(),
+        description:z.string(),
+        price:z.number(),
+        imageUrl:z.string()
     })
+    const paresCourses= coursesSchema.safeParse({ 
+        title,
+        description,
+        price,
+        imageUrl
+
+       }); 
+
+       if(!paresCourses.success){
+        console.error("Validation errors:", paresCourses.error.issues);
+          return res.status(400).json({
+            errors: paresCourses.error.issues
+          });
+       }
+
+        // adding courses in the database
+            try{
+                
+        const courses= await coursesModel.create({
+            title:title,
+            description:description,
+            price:price,
+            imageUrl:imageUrl,
+            creatorId:adminId
+        })
+            res.json({
+                message:"courses is added in the data base"
+            })
+            } catch(err){
+                console.log(err);
+                res.status(403).json({
+                    error:err
+                })
+            }
+    })
+ 
+    // update in corese
+adminRouter.put("/courses",adminAuth,async(req,res)=>{
+    const adminId= req.adminId;
+   
+    const { title ,description, price, imageUrl,coursesId}=req.body;
+    //zod for the verification
+
+    const coursesSchema=z.object({
+        title:z.string(),
+        description:z.string(),
+        price:z.number(),
+        imageUrl:z.string(),
+        coursesId:z.string()
+    })
+    const paresCourses= coursesSchema.safeParse({ 
+        title,
+        description,
+        price,
+        imageUrl,
+        coursesId
+
+       }); 
+
+       if(!paresCourses.success){
+        console.error("Validation errors:", paresCourses.error.issues);
+          return res.status(400).json({
+            errors: paresCourses.error.issues
+          });
+       }
+
+        // adding courses in the database
+            try{
+                
+          const courses= await coursesModel.updateOne({
+            _id:coursesId,
+            creatorId:adminId
+          },{
+            title:title,
+            description:description,
+            price:price,
+            imageUrl:imageUrl,
+            
+        })
+            res.json({
+                message:"courses is updated in the data base"
+            })
+            } catch(err){
+                console.log(err);
+                res.status(403).json({
+                    error:err
+                })
+            }
+
+
 }); 
 
-adminRouter.put("/courses",(req,res)=>{
 
-    res.json({
-        message:"admin route check"
-    })
-}); 
+adminRouter.get("/courses/bulk",adminAuth,async(req,res)=>{
 
+     const adminId=req.adminId;
 
-adminRouter.get("/courses/bulk",(req,res)=>{
+     const courses= await coursesModel.find({
+        creatorId:adminId
+     });
 
-    res.json({
-        message:"admin route check"
-    })
+     res.jeon
 }); 
 module.exports={
     adminRouter:adminRouter

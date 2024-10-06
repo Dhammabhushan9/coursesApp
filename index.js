@@ -5,24 +5,27 @@ const {userRoute}=require("./routes/user");
 const {coursesRoute}=require( "./routes/courses");
 const mongoose=require("mongoose");
 const { adminRouter } = require("./routes/admin");
-
+const mongoURI = process.env.DATABASE_URL;
 // parsing body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //database connection
-async function mogoconnection() {
 
-  try{
-    await mongoose.connect("mongodb+srv://cob56dhammabhushanwaghmare:omtNTxv1bOtWqTmD@cluster0.jtu0y.mongodb.net/coursesApp");
-  console.log("connection done ");
-  }catch(err){
-    console.log(err);
-  }
-  
+require('dotenv').config();
+
+
+
+if (!mongoURI) {
+  console.error('MongoDB connection string is undefined. Check your .env file.');
+  process.exit(1);  // Exit the process if the URI is not defined
 }
 
-mogoconnection();
+mongoose.connect(mongoURI)
+  .then(() => console.log('MongoDB connected successfully'))
+  .catch((error) => console.error('MongoDB connection error:', error));
+
+ 
 //importing route
 app.use("/user",userRoute);
 app.use("/courses",coursesRoute);

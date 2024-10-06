@@ -4,9 +4,10 @@ const {z}= require("zod");
 const  bcrypt= require("bcrypt");
 const { userModel } = require("../db");
 const jwt= require("jsonwebtoken");
+const userAuth = require("../middleware/userAuth");
 require('dotenv').config();
 const SECRET_KEY=process.env.USER_SECRET_KEY;
-const userAuth= require("../auth/userAuth") ;
+
 
 
 const userRoute=Router();
@@ -132,8 +133,10 @@ userRoute.post("/signin", async(req,res)=>{
     }
 });
  
-userRoute.post("/purchases", async(req,res)=>{
-     
+
+
+userRoute.post("/purchases",userAuth, async(req,res)=>{
+     const userId= req.usereId;
 
 
 
