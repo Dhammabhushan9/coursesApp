@@ -1,1 +1,84 @@
+ body{
+background-color: #0f1825;
+color:white;
+font-family: 'Poppins', sans-serif;
+}
 
+.Nav-outer{
+ display: flex;
+ justify-content: space-between;
+ padding-left: 320px;
+ padding-right: 320px;
+ padding-top: 24px;
+}
+
+.btn-my:hover{
+background-color: #305c96;
+
+}
+
+
+.Allen-main{
+padding-left:350px ;
+padding-right: 350px;
+padding-top: 50px;
+}
+
+.Allen-hero{
+    padding-top: 60px;
+     
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-my-hero{
+    border: 3px solid rgb(32, 32, 118);
+    border-radius: 15px;
+    color: white;
+    margin-left: 10px;
+}
+
+.Padding{
+    padding-top: 50px;
+}
+
+.card{
+
+    width: 300px;
+    height: 250px;
+    border-radius: 20px;
+    background-color: #0e1f41;
+    color: white;
+}
+
+.card-Allen{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 50px;
+    
+}
+.Exam-page{
+    padding-left:350px ;
+    padding-right: 350px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.Transperent{
+    opacity: 0.9;
+    border: 2px solid blue;
+    border-radius: 10px ;
+}
+
+ 
+
+.nav-compo{
+    text-decoration: none;
+    color: white;
+}
+
+.basic{
+    padding-left: 400px;
+    padding-right: 400px;
+    padding-top: 100px;
+}
