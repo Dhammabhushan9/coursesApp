@@ -1,5 +1,6 @@
 import React from 'react';
 import {   Link } from 'react-router-dom';
+import './nav.css'
 function Nav() {
     return (
        
@@ -24,7 +25,7 @@ function Nav() {
              
             <div>
                 <button className='btn btn-light'>Talk to us</button>
-                &nbsp;&nbsp;&nbsp;&nbsp;
+              
                 <button className='btn btn-my' style={{color:'white',borderRadius:'10px',border:'1px solid white'}}>Login</button>
             </div>
 

@@ -1,0 +1,72 @@
+/* Tablet view (768px - 1024px) */
+@media only screen and (max-width: 1024px) {
+    .Allen-main {
+        padding-left: 10vw;
+        padding-right: 10vw;
+    }
+
+    .Allen-hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .Allen-hero h2 {
+        font-size: 1.75rem;
+    }
+
+    .Allen-hero img {
+        width: 70%;  /* Reduce image size */
+    }
+
+    .btn-my-hero {
+        margin: 0.5rem;
+        padding: 0.5rem 1.25rem;
+        font-size: 0.9rem;
+    }
+
+    .card-Allen {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        margin-bottom: 2rem;
+    }
+}
+
+/* Mobile view (max-width: 768px) */
+@media only screen and (max-width: 768px) {
+    .Allen-main {
+        padding-left: 5vw;
+        padding-right: 5vw;
+    }
+
+    .Allen-hero {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .Allen-hero img {
+        width: 90%;  /* Further reduce image size */
+    }
+
+    .Allen-hero h2 {
+        font-size: 1.5rem;
+    }
+
+    .btn-my-hero {
+        width: 100%;  /* Buttons take full width */
+        margin: 0.5rem 0;
+    }
+
+    .card-Allen {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 100%;  /* Full width cards */
+        margin-bottom: 2rem;
+    }
+}
